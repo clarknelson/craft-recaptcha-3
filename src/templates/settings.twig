@@ -1,0 +1,31 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Craft reCAPTCHA 3 plugin for Craft CMS 3.x
+ *
+ * Craft reCAPTCHA 3 Settings.twig
+ *
+ * @author    Clark Nelson
+ * @copyright Copyright (c) 2019 Clark Nelson
+ * @link      http://clarknelson.com
+ * @package   CraftRecaptcha3
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\craftrecaptcha3\\CraftRecaptcha3Asset") %}
+
+{{ forms.textField({
+    label: 'Google Recaptcha Site Key',
+    id: 'siteKey',
+    name: 'siteKey',
+    value: settings['siteKey']})
+}}
+{{ forms.textField({
+    label: 'Google Recaptcha Secret Key',
+    id: 'secretKey',
+    name: 'secretKey',
+    value: settings['secretKey']})
+}}

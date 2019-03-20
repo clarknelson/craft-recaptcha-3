@@ -1,0 +1,27 @@
+{% set siteKey = plugin('craft-recaptcha-3').settings.siteKey %}
+{% if siteKey is empty %}
+The site key was not set for the Craft Recaptcha 3 plugin. <a target="_blank" href="/admin/settings/plugins/craft-recaptcha-3">Please visit the settings page to add this key.</a>
+{% else %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
+<script>
+  window.grecaptcha.ready(function() {
+    window.grecaptcha.execute("{{ siteKey }}", {
+      action: 'contact'
+    }).then(function(token) {
+      $.post('/actions/craft-recaptcha-3/default', {
+        response: token,
+        '{{craft.app.config.general.csrfTokenName}}': '{{craft.app.request.csrfToken}}'
+      }, function(e) {
+        var response = JSON.parse(e);
+        if(response.success) {
+          window.recaptcha_success();
+        }
+        else {
+          window.recaptcha_failure();
+        }
+      });
+    });
+  });
+
+</script>
+{% endif %}
