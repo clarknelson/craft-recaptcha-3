@@ -2,11 +2,12 @@
 {% if siteKey is empty %}
 The site key was not set for the Craft Recaptcha 3 plugin. <a target="_blank" href="/admin/settings/plugins/craft-recaptcha-3">Please visit the settings page to add this key.</a>
 {% else %}
+{% set action = action|default('contact') %}
 <script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
 <script>
   window.grecaptcha.ready(function() {
     window.grecaptcha.execute("{{ siteKey }}", {
-      action: 'contact'
+      action: action
     }).then(function(token) {
       $.post('/actions/craft-recaptcha-3/default', {
         response: token,
