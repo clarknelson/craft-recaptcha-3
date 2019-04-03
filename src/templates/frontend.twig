@@ -7,7 +7,7 @@ The site key was not set for the Craft Recaptcha 3 plugin. <a target="_blank" hr
 <script>
   window.grecaptcha.ready(function() {
     window.grecaptcha.execute("{{ siteKey }}", {
-      action: action
+      action: {{ action }}
     }).then(function(token) {
       $.post('/actions/craft-recaptcha-3/default', {
         response: token,
