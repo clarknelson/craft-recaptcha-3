@@ -8,7 +8,18 @@
     "cms",
     "craftcms",
     "craft-plugin",
-    "craft recaptcha 3"
+    "craft recaptcha 3",
+    "forms",
+    "contact",
+    "security",
+    "recaptcha",
+    "captcha",
+    "spam",
+    "anti-spam",
+    "validation",
+    "google",
+    "anti-bot",
+    "anti-bots"
   ],
   "support": {
     "docs": "https://github.com/clarknelson/craft-recaptcha-3/blob/master/README.md",
