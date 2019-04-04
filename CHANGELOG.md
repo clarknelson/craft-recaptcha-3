@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.4 - 2019-04-04
+### Fixed
+- Did not increment the version in composer so the plugin did not update in craft. Hopefully everyone will get the 1.0.4 release.
+
 ## 1.0.3 - 2019-04-03
 ### Fixed
 - Bug with front-end template where the action was output as variable not string
