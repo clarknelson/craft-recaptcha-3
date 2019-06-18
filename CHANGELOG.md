@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.6 - 2019-06-18
+### Fixed
+- I did not release the correct way using tags, trying again.
+
 ## 1.0.5 - 2019-06-18
 ### Improvement
 - I have removed jQuery from the front-end code, this should not be a dependency anymore even though it is common in many environments. I even used XMLHttpRequest to support Internet Explorer.
