@@ -1,28 +1,51 @@
 {% set siteKey = plugin('craft-recaptcha-3').settings.siteKey %}
 {% if siteKey is empty %}
-The site key was not set for the Craft Recaptcha 3 plugin. <a target="_blank" href="/admin/settings/plugins/craft-recaptcha-3">Please visit the settings page to add this key.</a>
+  The site key was not set for the Craft Recaptcha 3 plugin.
+  <a href="/admin/settings/plugins/craft-recaptcha-3" target="_blank">Please visit the settings page to add this key.</a>
 {% else %}
-{% set action = action|default('contact') %}
-<script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
-<script>
-  window.grecaptcha.ready(function() {
-    window.grecaptcha.execute("{{ siteKey }}", {
-      action: '{{ action }}'
-    }).then(function(token) {
-      $.post('/actions/craft-recaptcha-3/default', {
-        response: token,
-        '{{craft.app.config.general.csrfTokenName}}': '{{craft.app.request.csrfToken}}'
-      }, function(e) {
-        var response = JSON.parse(e);
-        if(response.success) {
-          window.recaptcha_success();
-        }
-        else {
-          window.recaptcha_failure();
-        }
-      });
+  {% set action = action|default('contact') %}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
+  <script>
+    window.grecaptcha.ready(function () {
+      requestCSRF();
     });
-  });
-
-</script>
+    var requestCSRF = function () {
+      var csrfRequest = new XMLHttpRequest();
+      csrfRequest.onreadystatechange = function () {
+        if (csrfRequest.readyState == XMLHttpRequest.DONE) {
+          var response = JSON.parse(csrfRequest.responseText)
+          if (csrfRequest.status == 200) {
+            requestScore(response.csrfTokenValue);
+          } else {
+            console.log('There was a problem requesting the CSRF token from the server', response);
+          }
+        }
+      };
+      csrfRequest.open("GET", "/index.php?p=admin/actions/users/get-remaining-session-time&dontExtendSession=1", true);
+      csrfRequest.setRequestHeader("Accept", "application/json");
+      csrfRequest.send();
+    };
+    var requestScore = function (csrf) {
+      window.grecaptcha.execute("{{ siteKey }}", {action: '{{ action }}'}).then(function (token) {
+        var scoreRequest = new XMLHttpRequest();
+        scoreRequest.onreadystatechange = function () {
+          if (scoreRequest.readyState == XMLHttpRequest.DONE) {
+            var response = JSON.parse(scoreRequest.responseText)
+            if (scoreRequest.status == 200) {
+              if(response.success){
+                window.recaptcha_success();
+              } else {
+                window.recaptcha_failure();
+              }
+            } else {
+              console.log('There was a problem requesting the captcha score from the server', response);
+            }
+          }
+        };
+        scoreRequest.open("POST", "/actions/craft-recaptcha-3/default", true);
+        scoreRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        scoreRequest.send('response='+token+'&{{ craft.app.config.general.csrfTokenName }}='+csrf);
+      });
+    };
+  </script>
 {% endif %}
