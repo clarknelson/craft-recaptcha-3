@@ -57,6 +57,10 @@ class Settings extends Model
      */
     public function rules()
     {
-        return [ ];
+        return [
+            ['siteKey', 'string'],
+            ['secretKey', 'string'],
+            [['siteKey', 'secretKey'], 'required']
+        ];
     }
 }

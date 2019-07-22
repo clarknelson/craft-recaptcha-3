@@ -13,7 +13,7 @@
       var csrfRequest = new XMLHttpRequest();
       csrfRequest.onreadystatechange = function () {
         if (csrfRequest.readyState == XMLHttpRequest.DONE) {
-          var response = JSON.parse(csrfRequest.responseText)
+          var response = JSON.parse(csrfRequest.responseText);
           if (csrfRequest.status == 200) {
             requestScore(response.csrfTokenValue);
           } else {
@@ -30,12 +30,20 @@
         var scoreRequest = new XMLHttpRequest();
         scoreRequest.onreadystatechange = function () {
           if (scoreRequest.readyState == XMLHttpRequest.DONE) {
-            var response = JSON.parse(scoreRequest.responseText)
+            var response = JSON.parse(scoreRequest.responseText);
+            console.log(response);
             if (scoreRequest.status == 200) {
-              if(response.success){
-                window.recaptcha_success();
+              if (response.success) {
+                if (window.recaptcha_success) {
+                  window.recaptcha_success(response);
+                }
               } else {
-                window.recaptcha_failure();
+                if (window.recaptcha_failure) {
+                  window.recaptcha_failure(response);
+                }
+              }
+              if (window.recaptcha_callback) {
+                window.recaptcha_callback(response);
               }
             } else {
               console.log('There was a problem requesting the captcha score from the server', response);
@@ -43,8 +51,8 @@
           }
         };
         scoreRequest.open("POST", "/actions/craft-recaptcha-3/default", true);
-        scoreRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        scoreRequest.send('response='+token+'&{{ craft.app.config.general.csrfTokenName }}='+csrf);
+        scoreRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        scoreRequest.send('response=' + token + '&{{ craft.app.config.general.csrfTokenName }}=' + csrf);
       });
     };
   </script>

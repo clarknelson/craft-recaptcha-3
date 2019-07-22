@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.7 - 2019-07-22
+### Improvement
+- We are now passing the recaptcha response to the success and callback functions. This response will provide more information regarding the score the user recieved. See the updated docs.
+- We have added a `recaptcha_callback(repsonse)` function if you would like to handle the success / failure yourself, or use a single function instead of two.
+
 ## 1.0.6 - 2019-06-18
 ### Fixed
 - I did not release the correct way using tags, trying again.
