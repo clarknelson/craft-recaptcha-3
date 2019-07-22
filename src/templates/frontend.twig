@@ -31,7 +31,6 @@
         scoreRequest.onreadystatechange = function () {
           if (scoreRequest.readyState == XMLHttpRequest.DONE) {
             var response = JSON.parse(scoreRequest.responseText);
-            console.log(response);
             if (scoreRequest.status == 200) {
               if (response.success) {
                 if (window.recaptcha_success) {
