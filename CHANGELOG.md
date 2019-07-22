@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.8 - 2019-07-22
+### Fixed
+- Remove a console log that I had forgot.
+
 ## 1.0.7 - 2019-07-22
 ### Improvement
 - We are now passing the recaptcha response to the success and callback functions. This response will provide more information regarding the score the user recieved. See the updated docs.

@@ -34,8 +34,15 @@
             if (scoreRequest.status == 200) {
               if (window.recaptcha_callback) {
                 window.recaptcha_callback(response);
-                window.recaptcha_success(response);
-                window.recaptcha_failure(response);
+              }
+              if (response.success) {
+                if (window.recaptcha_success) {
+                  window.recaptcha_success(response);
+                }
+              } else {
+                if (window.recaptcha_failure) {
+                  window.recaptcha_failure(response);
+                }
               }
             } else {
               console.log('There was a problem requesting the captcha score from the server', response);

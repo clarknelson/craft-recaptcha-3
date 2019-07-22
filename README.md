@@ -34,7 +34,9 @@ To validate users, use the `{% include ['_recaptcha/frontend'] %}` tag on the fr
 
 You can also pass the action name by passing the `action` variable in the `include` i.e. `{% include ['_recaptcha/frontend'] with {'action': 'login'} %}`. The default value for `action` is ``"contact"``. Information about Actions [can be found here](https://developers.google.com/recaptcha/docs/v3#actions).
 
-If the recaptcha is validated, the `recaptcha_success` function is run. If the user fails the recaptcha, a `recaptcha_failure` function is run. Both must be available on the window object (i.e. `window.recaptcha_success = function(response){ ... }`)
+A function will be called with the following signature: `window.recaptcha_callback = function(response){ ... }`
+
+This function will need to be defined at the global scope (on the window object). The response object passed into the function will contain a score key with a value between one and zero. Use this value to determine how to modify your website.
 
 ## Craft reCAPTCHA 3 Roadmap
 
