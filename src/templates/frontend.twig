@@ -22,7 +22,7 @@
           }
         }
       };
-      csrfRequest.open("GET", "/index.php?p=admin/{{ craft.app.config.general.actionTrigger }}/users/get-remaining-session-time&dontExtendSession=1", true);
+      csrfRequest.open("GET", "/index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/get-remaining-session-time&dontExtendSession=1", true);
       csrfRequest.setRequestHeader("Accept", "application/json");
       csrfRequest.send();
     };
@@ -50,7 +50,7 @@
             }
           }
         };
-        scoreRequest.open("POST", "/actions/craft-recaptcha-3/default", true);
+        scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
         scoreRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         scoreRequest.send('response=' + token + '&{{ craft.app.config.general.csrfTokenName }}=' + csrf);
       });
