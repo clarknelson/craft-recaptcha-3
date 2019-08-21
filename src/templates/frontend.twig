@@ -31,8 +31,8 @@
         var scoreRequest = new XMLHttpRequest();
         scoreRequest.onreadystatechange = function () {
           if (scoreRequest.readyState == XMLHttpRequest.DONE) {
-            var response = JSON.parse(scoreRequest.responseText);
             if (scoreRequest.status == 200) {
+              var response = JSON.parse(scoreRequest.responseText);
               if (window.recaptcha_callback) {
                 window.recaptcha_callback(response);
               }
@@ -46,7 +46,7 @@
                 }
               }
             } else {
-              console.log('There was a problem requesting the captcha score from the server', response);
+              console.log('There was a problem requesting the captcha score from the server', scoreRequest);
             }
           }
         };
