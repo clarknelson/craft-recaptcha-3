@@ -63,14 +63,17 @@ class DefaultController extends Controller
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
         $secret = CraftRecaptcha3::$plugin->getSettings()->secretKey;
-
-        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
-            'query' => [
-                'secret' => $secret,
-                'response' => $request['response']
-            ]
-        ]);
-        return $response->getBody();
+        if($request['response']){
+            $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+                'query' => [
+                    'secret' => $secret,
+                    'response' => $request['response']
+                ]
+            ]);
+            return $response->getBody();
+        } else {
+            $this->requireCpRequest();
+        }
     }
 
     public function actionCheckSettings()
