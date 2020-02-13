@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.0.12 - 2020-02-13
 ### Improvement
 - The default action will need the response from the front-end script. If that is not included, the user will be redirected to 400 error. This should prevent Craft from scraping the endpoint like a URL.
+- Update composer dependencies
 
 ## 1.0.11 - 2019-08-21
 ### Fixed
