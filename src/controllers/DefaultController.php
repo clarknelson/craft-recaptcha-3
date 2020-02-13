@@ -59,6 +59,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $this->requireCpRequest();
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
         $secret = CraftRecaptcha3::$plugin->getSettings()->secretKey;
