@@ -46,7 +46,7 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['index', 'check-settings'];
+    protected $allowAnonymous = false;
 
     // Public Methods
     // =========================================================================
@@ -72,12 +72,6 @@ class DefaultController extends Controller
         return $response->getBody();
     }
 
-    /**
-     * Handle a request going to our plugin's actionDoSomething URL,
-     * e.g.: actions/craft-recaptcha-3/default/do-something
-     *
-     * @return mixed
-     */
     public function actionCheckSettings()
     {
         $settings = CraftRecaptcha3::$plugin->getSettings();

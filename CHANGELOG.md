@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.12 - 2020-02-13
+### Improvement
+- Prevent actions from being recognized as routes.
+
 ## 1.0.11 - 2019-08-21
 ### Fixed
 - Updated minimum craft requirements in order to use the `plugin()` function.

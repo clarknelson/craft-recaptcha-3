@@ -10,6 +10,7 @@
     window.grecaptcha.ready(function () {
       requestCSRF();
     });
+
     var requestCSRF = function () {
       var csrfRequest = new XMLHttpRequest();
       csrfRequest.onreadystatechange = function () {
@@ -26,6 +27,7 @@
       csrfRequest.setRequestHeader("Accept", "application/json");
       csrfRequest.send();
     };
+
     var requestScore = function (csrf) {
       window.grecaptcha.execute("{{ siteKey }}", {action: '{{ action }}'}).then(function (token) {
         var scoreRequest = new XMLHttpRequest();
