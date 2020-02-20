@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.13 - 2020-02-20
+### Fixed
+- Remove depreciation warning
+
 ## 1.0.12 - 2020-02-13
 ### Improvement
-- The default action will need the response from the front-end script. If that is not included, the user will be redirected to 400 error. This should prevent Craft from scraping the endpoint like a URL.
+- Prevent controller actions from being recognized as routes.
 - Update composer dependencies
 
 ## 1.0.11 - 2019-08-21
