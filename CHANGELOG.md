@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 1.0.13 - 2020-02-20
 ### Fixed
-- Remove depreciation warning
+- Remove depreciation warning regarding user sessions.
 
 ## 1.0.12 - 2020-02-13
 ### Improvement
