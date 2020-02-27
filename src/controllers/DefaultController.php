@@ -71,6 +71,8 @@ class DefaultController extends Controller
                 ]
             ]);
             return $response->getBody();
+        } else {
+            $this->asErrorJson('There was no response key attached to the request, we can not continue without this key.');
         }
     }
 
