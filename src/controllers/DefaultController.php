@@ -59,7 +59,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-
         // $this->requireCpRequest();
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
@@ -72,8 +71,6 @@ class DefaultController extends Controller
                 ]
             ]);
             return $response->getBody();
-        } else {
-            // $this->requireCpRequest();
         }
     }
 
