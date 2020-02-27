@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Craft reCAPTCHA 3 plugin for Craft CMS 3.x
  *
@@ -63,7 +64,7 @@ class DefaultController extends Controller
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
         $secret = CraftRecaptcha3::$plugin->getSettings()->secretKey;
-        if(array_key_exists('response', $request)){
+        if (array_key_exists('response', $request)) {
             $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
                 'query' => [
                     'secret' => $secret,
@@ -72,7 +73,7 @@ class DefaultController extends Controller
             ]);
             return $response->getBody();
         } else {
-            $this->asErrorJson('There was no response key attached to the request, we can not continue without this key.');
+            return $this->asErrorJson('There was no response key attached to the request, we can not continue without this key.');
         }
     }
 
@@ -80,11 +81,11 @@ class DefaultController extends Controller
     {
         $settings = CraftRecaptcha3::$plugin->getSettings();
 
-        if(!$settings->siteKey){
+        if (!$settings->siteKey) {
             throw new \Exception('The Site Key is empty for the Craft Recaptcha 3 Plugin. Please visit the settings page for the plugin to provide this information.');
         }
 
-        if(!$settings->secretKey){
+        if (!$settings->secretKey) {
             throw new \Exception('The Secret Key is empty for the Craft Recaptcha 3 Plugin. Please visit the settings page for the plugin to provide this information.');
         }
 
