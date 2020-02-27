@@ -20,10 +20,6 @@
         } else {
           console.log('There was a problem requesting the CSRF token from the server', response);
         }
-        // if (csrfRequest.readyState == 4) {
-        // } else {
-        //   console.log('Ready state change', csrfRequest.readyState);
-        // }
       };
       csrfRequest.open("GET", "/index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/session-info&dontExtendSession=1", true);
       csrfRequest.setRequestHeader("Accept", "application/json");
@@ -51,11 +47,6 @@
           } else {
             console.log('There was a problem requesting the captcha score from the server', scoreRequest);
           }
-          // if (scoreRequest.readyState == 4) {
-
-          // } else {
-          //   console.log('There was a problem requesting the captcha score from the server', scoreRequest);
-          // }
         };
         scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
         scoreRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
