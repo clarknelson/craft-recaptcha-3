@@ -14,7 +14,7 @@
     var requestCSRF = function () {
       var csrfRequest = new XMLHttpRequest();
       csrfRequest.onreadystatechange = function () {
-        if (csrfRequest.readyState == XMLHttpRequest.DONE) {
+        if (csrfRequest.readyState == 4) {
           var response = JSON.parse(csrfRequest.responseText);
           if (csrfRequest.status == 200) {
             requestScore(response.csrfTokenValue);
