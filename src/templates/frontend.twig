@@ -21,6 +21,8 @@
           } else {
             console.log('There was a problem requesting the CSRF token from the server', response);
           }
+        } else {
+          console.log('There was a problem requesting the CSRF token from the server', csrfRequest.readyState);
         }
       };
       csrfRequest.open("GET", "/index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/session-info&dontExtendSession=1", true);
@@ -50,6 +52,8 @@
             } else {
               console.log('There was a problem requesting the captcha score from the server', scoreRequest);
             }
+          } else {
+            console.log('There was a problem requesting the captcha score from the server', scoreRequest);
           }
         };
         scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
