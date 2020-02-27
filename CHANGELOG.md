@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.15 - 2020-02-27
+### Improvement
+- Better handling in default controller action. Should throw 404 error if no request key included.
+
 ## 1.0.14 - 2020-02-27
 ### Improvement
 - XML Request will listen to `ondone` instead of `onreadystatechange`. Function is called less times and more reliably.
