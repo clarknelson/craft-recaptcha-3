@@ -46,7 +46,7 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = false;
+    protected $allowAnonymous = true;
 
     // Public Methods
     // =========================================================================
@@ -59,6 +59,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+
         // $this->requireCpRequest();
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
@@ -72,7 +73,7 @@ class DefaultController extends Controller
             ]);
             return $response->getBody();
         } else {
-            $this->requireCpRequest();
+            // $this->requireCpRequest();
         }
     }
 
