@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.16 - 2020-02-27
+### Improvement
+- Actually throw template error instead of just calling it...
+
 ## 1.0.15 - 2020-02-27
 ### Improvement
 - Better handling in default controller action. Should throw 404 error if no request key included.
