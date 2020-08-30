@@ -1,7 +1,11 @@
 {% set siteKey = plugin('craft-recaptcha-3').settings.siteKey %}
 {% if siteKey is empty %}
-  The site key was not set for the Craft Recaptcha 3 plugin.
-  <a href="/admin/settings/plugins/craft-recaptcha-3" target="_blank">Please visit the settings page to add this key.</a>
+  {% if currentUser %}
+    The site key was not set for the Craft Recaptcha 3 plugin.
+    <a href="/{{ craft.app.config.general.cpTrigger }}/settings/plugins/craft-recaptcha-3" target="_blank">Please visit the settings page to add this key.</a>
+  {% else %}
+    <script>console.log("The site key was not set for the Craft Recaptcha 3 plugin.");</script>
+  {% endif %}
 {% else %}
   {% set action = action|default('contact') %}
 
