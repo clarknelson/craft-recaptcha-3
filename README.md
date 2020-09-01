@@ -38,6 +38,20 @@ A function will be called with the following signature: `window.recaptcha_callba
 
 This function will need to be defined at the global scope (on the window object). The response object passed into the function will contain a score key with a value between one and zero. Use this value to determine how to modify your website.
 
+## Configuration
+
+Settings may be optionally configured using a config file.
+
+Create config/craft-recaptcha-3
+```php
+<?php
+return [
+	"siteKey" => getenv("GOOGLE_SITEKEY"),
+	"secretKey" => getenv("GOOGLE_SECRETKEY")
+];
+```
+and then move your keys in your env.
+
 ## Craft reCAPTCHA 3 Roadmap
 
 Some things to do, and ideas for potential features:
