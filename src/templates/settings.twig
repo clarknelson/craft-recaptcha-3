@@ -13,9 +13,13 @@
  */
 #}
 
-{% import "_includes/forms" as forms %}
+{% import "_includes/forms" as forms %}{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\craftrecaptcha3\\CraftRecaptcha3Asset") %}
+	<p>
+	Please visit
+		<a href="https://www.google.com/recaptcha/admin/create"> Google's reCAPTCHA admin panel</a>
+	to generate new keys.
+</p>
 
-{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\craftrecaptcha3\\CraftRecaptcha3Asset") %}
 
 {{ forms.textField({
     label: 'Google Recaptcha Site Key',
