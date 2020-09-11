@@ -59,4 +59,4 @@ Some things to do, and ideas for potential features:
 * Custom callback for success and failure
 * Bug fixes (once opened)
 
-Brought to you by [Clark Nelson](http://clarknelson.com)
+Brought to you by [Clark Nelson](https://clarknelson.com) and lovely GitHub contributors like you!
