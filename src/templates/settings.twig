@@ -13,10 +13,12 @@
  */
 #}
 
-{% import "_includes/forms" as forms %}{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\craftrecaptcha3\\CraftRecaptcha3Asset") %}
+{% import "_includes/forms" as forms %}
+{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\craftrecaptcha3\\CraftRecaptcha3Asset") %}
+
 	<p>
 	Please visit
-		<a href="https://www.google.com/recaptcha/admin/create"> Google's reCAPTCHA admin panel</a>
+		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"> Google's reCAPTCHA admin panel</a>
 	to generate new keys.
 </p>
 
