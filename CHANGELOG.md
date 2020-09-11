@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.0 - 2020-09-11
+### Improvement
+- Add .env variables and template checks (Thanks @nickolasjadams)
+- Checks for google script before loading captcha (Thanks @billythekid)
+- Add link to Google's admin panel to easily get new keys
+- Update readme.md to give credit to github contributors
+
 ## 1.0.15 - 2020-02-27
 ### Improvement
 - Better handling in default controller action. Should throw 404 error if no request key included.
