@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Craft reCAPTCHA 3 plugin for Craft CMS 3.x
  *
@@ -8,7 +9,7 @@
  * @copyright Copyright (c) 2019 Clark Nelson
  */
 
-namespace clarknelson\craftrecaptcha3\assetbundles\CraftRecaptcha3;
+namespace clarknelson\craftrecaptcha3\assetbundles\craftrecaptcha3;
 
 use Craft;
 use craft\web\AssetBundle;
