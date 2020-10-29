@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2019 Clark Nelson
  */
 
-namespace clarknelson\craftrecaptcha3\assetbundles\craftrecaptcha3;
+namespace clarknelson\craftrecaptcha3\assetbundles\CraftRecaptcha3;
 
 use Craft;
 use craft\web\AssetBundle;
