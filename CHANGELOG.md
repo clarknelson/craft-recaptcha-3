@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1 - 2020-10-29
+### Fixed
+- Fix Composer 2 autoloading for assetbundles (Thanks @brandonkelly)
+
 ## 1.1.0 - 2020-09-11
 ### Improvement
 - Add .env variables and template checks (Thanks @nickolasjadams)
