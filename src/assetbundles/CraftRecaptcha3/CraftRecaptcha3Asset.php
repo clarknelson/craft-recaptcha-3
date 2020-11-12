@@ -44,7 +44,7 @@ class CraftRecaptcha3Asset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@clarknelson/craftrecaptcha3/assetbundles/craftrecaptcha3/dist";
+        $this->sourcePath = "@clarknelson/craftrecaptcha3/assetbundles/CraftRecaptcha3/dist";
 
         // define the dependencies
         $this->depends = [
