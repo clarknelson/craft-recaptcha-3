@@ -14,13 +14,10 @@
 #}
 
 {% import "_includes/forms" as forms %}
-{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\CraftRecaptcha3\\CraftRecaptcha3Asset") %}
-	<p>
-	Please visit
-		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"> Google's reCAPTCHA admin panel</a>
-	to generate new keys.
-</p>
 
+{% do view.registerAssetBundle("clarknelson\\craftrecaptcha3\\assetbundles\\CraftRecaptcha3\\CraftRecaptcha3Asset") %}
+
+<p>Please visit <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google's reCAPTCHA admin panel</a> to <a href="https://www.google.com/recaptcha/admin/create" target="_blank">generate new keys.</a></p>
 
 {{ forms.textField({
     label: 'Google Recaptcha Site Key',
@@ -28,6 +25,7 @@
     name: 'siteKey',
     value: settings['siteKey']})
 }}
+
 {{ forms.textField({
     label: 'Google Recaptcha Secret Key',
     id: 'secretKey',

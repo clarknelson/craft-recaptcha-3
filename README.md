@@ -30,19 +30,45 @@ To configure the plugin, simply provide the site key and secret key in the setti
 
 ## Using Craft reCAPTCHA 3
 
-To validate users, use the `{% include ['_recaptcha/frontend'] %}` tag on the frontend. This will inject a script to communicate between your website and Google.
+The invisible recaptcha has two parts, a front-end request and a back-end request. This code will inject a script to communicate between your website and Google. (Can be anywhere on page)
 
-You can also pass the action name by passing the `action` variable in the `include` i.e. `{% include ['_recaptcha/frontend'] with {'action': 'login'} %}`. The default value for `action` is ``"contact"``. Information about Actions [can be found here](https://developers.google.com/recaptcha/docs/v3#actions).
+```php
+{% include ['_recaptcha/frontend'] %}
+```
 
-A function will be called with the following signature: `window.recaptcha_callback = function(response){ ... }`
+You can also include an action name by passing the `action` variable to the script. More information about actions [can be found here](https://developers.google.com/recaptcha/docs/v3#actions).
 
-This function will need to be defined at the global scope (on the window object). The response object passed into the function will contain a score key with a value between one and zero. Use this value to determine how to modify your website.
+```php
+{% include ['_recaptcha/frontend'] with {'action': 'contact'} %}
+```
+
+The following javascript functions will be called once the responce from Google is recieved:
+
+```js
+
+// Called if there is a successful response
+window.recaptcha_callback = function(response){
+        console.log(response);
+}
+
+// Called only if the user passes the challenge
+window.recaptcha_success = function(response){
+        console.log(response);
+}
+// Called only if the user fails the challenge
+window.recaptcha_failure = function(response){
+        console.log(response);
+}
+```
+
+Please make one or all of these functions available in the Javascript runtime to be called. It's worth noting that 
 
 ## Configuration
 
 Settings may be optionally configured using a config file.
 
-Create config/craft-recaptcha-3
+Create `config/craft-recaptcha-3.php`
+
 ```php
 <?php
 return [
@@ -56,7 +82,6 @@ and then move your keys in your env.
 
 Some things to do, and ideas for potential features:
 
-* Custom callback for success and failure
-* Bug fixes (once opened)
+* Make response available to backend plugins?
 
 Brought to you by [Clark Nelson](https://clarknelson.com) and lovely GitHub contributors like you!

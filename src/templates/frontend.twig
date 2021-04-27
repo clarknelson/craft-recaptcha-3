@@ -1,4 +1,6 @@
+
 {% set siteKey = plugin('craft-recaptcha-3').settings.siteKey %}
+
 {% if siteKey is empty %}
   {% if currentUser %}
     The site key was not set for the Craft Recaptcha 3 plugin.
@@ -7,15 +9,15 @@
     <script>console.error("The site key was not set for the Craft Recaptcha 3 plugin.");</script>
   {% endif %}
 {% else %}
-  {% set action = action|default('contact') %}
-
   <script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
   <script>
-    if (typeof window.grecaptcha !== 'undefined') {
+    if (typeof window.grecaptcha !== "undefined") {
       window.grecaptcha.ready(function () {
         requestCSRF();
       });
 
+      // CSRF is a Craft security mechanism on form submissions
+      // we first need to request this token before sending to Google
       var requestCSRF = function () {
         var csrfRequest = new XMLHttpRequest();
         csrfRequest.onload = function () {
@@ -23,7 +25,7 @@
           if (csrfRequest.status == 200) {
             requestScore(response.csrfTokenValue);
           } else {
-            console.log('There was a problem requesting the CSRF token from the server', response);
+            console.error("There was a problem requesting the CSRF token from the server", response);
           }
         };
         csrfRequest.open("GET", "/index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/session-info&dontExtendSession=1", true);
@@ -32,7 +34,7 @@
       };
 
       var requestScore = function (csrf) {
-        window.grecaptcha.execute("{{ siteKey }}", {action: '{{ action }}'}).then(function (token) {
+        window.grecaptcha.execute("{{ siteKey }}", {action: "{{ action | default('contact') }}"}).then(function (token) {
           var scoreRequest = new XMLHttpRequest();
           scoreRequest.onload = function () {
             if (scoreRequest.status == 200) {
@@ -50,7 +52,7 @@
                 }
               }
             } else {
-              console.log('There was a problem requesting the captcha score from the server', scoreRequest);
+              console.error('There was a problem requesting the captcha score from the server', scoreRequest);
             }
           };
           scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);

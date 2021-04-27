@@ -60,20 +60,20 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        // $this->requireCpRequest();
         $request = Craft::$app->request->post();
         $client = new \GuzzleHttp\Client();
         $secret = CraftRecaptcha3::$plugin->getSettings()->secretKey;
+
         if (array_key_exists('response', $request)) {
-            $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            $response = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
                 'query' => [
                     'secret' => $secret,
-                    'response' => $request['response']
+                    'response' => $request['response'],
                 ]
-            ]);
+            ]);  
             return $response->getBody();
         } else {
-            return $this->asErrorJson('There was no response key attached to the request, we can not continue without this key.');
+            return $this->asErrorJson('There was no response key attached to the request, as provided by the front-end script. We can not continue without this key.');
         }
     }
 
