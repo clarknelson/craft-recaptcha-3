@@ -50,8 +50,7 @@ The following javascript functions will be called once the responce from Google 
 window.recaptcha_callback = function(response){
         console.log(response);
 }
-
-// Called only if the user passes the challenge
+// Called only if the usesr passes the challenge
 window.recaptcha_success = function(response){
         console.log(response);
 }
@@ -61,7 +60,9 @@ window.recaptcha_failure = function(response){
 }
 ```
 
-Please make one or all of these functions available in the Javascript runtime to be called. It's worth noting that 
+Please make one or all of these functions available in the Javascript runtime to be called. 
+
+This page from Google may help clear up any misconceptions or frequently encountered issues [https://developers.google.com/recaptcha/docs/faq](https://developers.google.com/recaptcha/docs/faq)
 
 ## Configuration
 
