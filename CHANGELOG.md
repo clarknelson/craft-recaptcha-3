@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.4 - 2021-08-09
+### Fixed
+  - Change front-end script to request from the current site's base URL instead of a relative base path. Should fix a bug with multi-site projects which are disabled. [#22]
+  - Update composer
+
+[#22]: https://github.com/clarknelson/craft-recaptcha-3/issues/22
+
 ## 1.1.3 - 2020-11-18
 ### Fixed
   - Update path for asset bundle files in settings template (Thanks @RobCompactCode)
