@@ -10,6 +10,7 @@
   {% endif %}
 {% else %}
   <script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
+
   <script>
     if (typeof window.grecaptcha !== "undefined") {
       window.grecaptcha.ready(function () {
@@ -28,7 +29,7 @@
             console.error("There was a problem requesting the CSRF token from the server", response);
           }
         };
-        csrfRequest.open("GET", "/index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/session-info&dontExtendSession=1", true);
+        csrfRequest.open("GET", "{{currentSite.baseUrl}}index.php?p={{ craft.app.config.general.cpTrigger }}/{{ craft.app.config.general.actionTrigger }}/users/session-info&dontExtendSession=1", true);
         csrfRequest.setRequestHeader("Accept", "application/json");
         csrfRequest.send();
       };
@@ -55,7 +56,7 @@
               console.error('There was a problem requesting the captcha score from the server', scoreRequest);
             }
           };
-          scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
+          scoreRequest.open("POST", "{{currentSite.baseUrl}}{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
           scoreRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           scoreRequest.send('response=' + token + '&{{ craft.app.config.general.csrfTokenName }}=' + csrf);
         });
