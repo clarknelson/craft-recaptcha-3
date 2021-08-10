@@ -19,6 +19,28 @@
 
 <p>Please visit <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google's reCAPTCHA admin panel</a> to <a href="https://www.google.com/recaptcha/admin/create" target="_blank">generate new keys.</a></p>
 
+<p>These codes can be added to the JS runtime to handle the response:</p>
+
+<code>
+// run if there is a 200 response from Google</br>
+window.recaptcha_callback = function(response){
+    console.log(response);
+}
+</br>
+</br>
+// run if the user passes the captcha</br>
+window.recaptcha_success = function(response){
+    console.log(response);
+}
+</br>
+</br>
+// run if the user fails the captcha</br>
+window.recaptcha_failure = function(response){
+    console.log(response);
+}
+</code>
+
+
 {{ forms.textField({
     label: 'Google Recaptcha Site Key',
     id: 'siteKey',
