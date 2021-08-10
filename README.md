@@ -18,15 +18,23 @@ To install the plugin, follow these instructions.
 
         composer require clarknelson/craft-recaptcha-3
 
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Craft reCAPTCHA 3.
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Craft reCAPTCHA 3. Or install from the command line:
+
+        ./craft install/plugin craft-recaptcha-3
 
 ## Craft reCAPTCHA 3 Overview
 
-Google's Recaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not even require any human input. It will determine whether the user is human based on their visitor characteristics. Unfortunately, the request to Google must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating recaptcha with Google by providing a drop-in solution.
+Google's Recaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. It will determine whether the user is human based on their browser characteristics, visiting history, cookie information, etc. The request to Google to auth must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating recaptcha with Google by providing a drop-in solution.
+
+Currently the plugin preforms the relay when the page is loaded. Future versions of the plugin may support authorization upon specific events. This page load authorization can used to modify the page in repsonse to bots.
+
+Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots (as opposed to Google's v2). 
+
+I hope this plugin helps in your spam prevention journey!
 
 ## Configuring Craft reCAPTCHA 3
 
-To configure the plugin, simply provide the site key and secret key in the settings screen. These two values are provided when you create a new site in the admin panel: <a href="https://www.google.com/recaptcha/intro/v3.html">https://www.google.com/recaptcha/intro/v3.html</a>.
+To configure the plugin, simply provide the site key and secret key in the settings screen. These two values are provided when you create a new site in the admin panel: <a href="https://www.google.com/recaptcha/intro/v3.html">https://www.google.com/recaptcha/intro/v3.html</a>. Make sure that these keys are to the v3 version of the plugin, or else Google's server will return a 400 error.
 
 ## Using Craft reCAPTCHA 3
 
@@ -83,6 +91,6 @@ and then move your keys in your env.
 
 Some things to do, and ideas for potential features:
 
-* Make response available to backend plugins?
+* Make response / function available to backend plugins?
 
-Brought to you by [Clark Nelson](https://clarknelson.com) and lovely GitHub contributors like you!
+Brought to you by [Clark Nelson](https://clarknelson.com) and GitHub contributors like you!
