@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.5 - 2021-10-18
+### Fixed
+  - Remove {{ currentSite.baseUrl }} and index.php from the user session fetch AJAX request. Since the vaseUrl value is from user input data, it is hard to find consistancy across implementations. A request to the base path with an implicit index.php should fix the issue. [#23]
+
+[#23]: https://github.com/clarknelson/craft-recaptcha-3/issues/23
+
 ## 1.1.4 - 2021-08-09
 ### Fixed
   - Change front-end script to request from the current site's base URL instead of a relative base path. Should fix a bug with multi-site projects which are disabled. [#22]
