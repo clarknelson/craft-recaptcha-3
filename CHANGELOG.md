@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.0 - 2021-10-19
+### Improvements
+  - I've refactored the code into twig extensions to create a more friendly and customizable API. 
+  - Managed to remove a request for the CSRF token
+  - Added function to include the script within forms
+
 ## 1.1.5 - 2021-10-18
 ### Fixed
-  - Remove {{ currentSite.baseUrl }} and index.php from the user session fetch AJAX request. Since the vaseUrl value is from user input data, it is hard to find consistancy across implementations. A request to the base path with an implicit index.php should fix the issue. [#23]
+  - Remove {{ currentSite.baseUrl }} and index.php from the user session fetch AJAX request. Since the vaseUrl value is from user input data, it is hard to find consistency across implementations. A request to the base path with an implicit index.php should fix the issue. [#23]
 
 [#23]: https://github.com/clarknelson/craft-recaptcha-3/issues/23
 
@@ -71,7 +77,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 1.0.7 - 2019-07-22
 ### Improvement
-- We are now passing the recaptcha response to the success and callback functions. This response will provide more information regarding the score the user recieved. See the updated docs.
+- We are now passing the recaptcha response to the success and callback functions. This response will provide more information regarding the score the user received. See the updated docs.
 - We have added a `recaptcha_callback(repsonse)` function if you would like to handle the success / failure yourself, or use a single function instead of two.
 
 ## 1.0.6 - 2019-06-18

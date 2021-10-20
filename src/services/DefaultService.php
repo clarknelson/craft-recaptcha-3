@@ -113,14 +113,13 @@ class DefaultService extends Component
     }
 
     /**
-     * This function can literally be anything you want, and you can have as many service
-     * functions as you want
+     * This is a helper function for the twig extention that will live in a <form> element
+     * A hidden input is added to the form in order to identify it.
+     * If the user didn't mess up and put it the wrong place (no <form>) then it will call the request function
      *
      * From any other plugin file, call it like this:
      *
-     *     CraftRecaptcha3::$plugin->captcha->recaptchaExectue()
-     *
-     * @return mixed
+     *     CraftRecaptcha3::$plugin->captcha->recaptchaForm($settings)
      */
     public function recaptchaForm($settings)
     {
@@ -145,21 +144,33 @@ class DefaultService extends Component
         EOD;
     }
 
+    /**
+     * This function will define but not call a function to retrieve the score
+     * It is mostly javascript, but we will need to inject a few variables from the user
+     *
+     * From any other plugin file, call it like this:
+     *
+     *     CraftRecaptcha3::$plugin->captcha->_requestScoreScript($funcName)
+     */
     public function _requestScoreScript($funcName)
     {
+        $funcName = $funcName ?? 'requestScore';
         $action = $this->settings['action'] ?? 'contact';
         $successCallback = $this->settings['success'] ?? 'recaptcha_success';
         $failureCallback = $this->settings['failure'] ?? 'recaptcha_failure';
 
         return <<<EOD
         var $funcName = function (event) {
-            // this will help signal when the ajax has completed
             let success = undefined; 
             let response = undefined;
             let f = typeof form !== 'undefined' ? form : null;
 
+            // if this function was a callback for a JS event
+            // then we want to stop the event until we verify the user
             if (typeof event !== 'undefined') {
                 event.preventDefault();
+            } else {
+                let event = null;
             }
             window.grecaptcha.execute("$this->siteKey", { action: "$action" }).then(function (token) {
                 var scoreRequest = new XMLHttpRequest();
@@ -180,20 +191,22 @@ class DefaultService extends Component
                 scoreRequest.send('response=' + token + '&$this->csrfTokenName=$this->csrfTokenValue');
             });
 
+            // this will always be running when the requestScore function is called
+            // when the AJAX request to Google / our server finalizes, we will exit
             let listen = setInterval(() => {
                 if(success == true || success == false){
                     clearInterval(listen);
                     if(success){
                         if (typeof $successCallback !== 'undefined') {
-                            $successCallback(response, f);
+                            $successCallback(response, event);
                         }
                     } else {
                         if (typeof $failureCallback !== 'undefined') {
-                            $failureCallback(response, f);
+                            $failureCallback(response, event);
                         }
                     }
                 } else {
-                    // do nothing really, wait for ajax to finish
+                    // do nothing really... 
                     // console.log(success);
                 }
             }, 100);

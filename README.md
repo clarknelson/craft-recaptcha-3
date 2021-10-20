@@ -20,25 +20,80 @@ To install the plugin, follow these instructions.
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Craft reCAPTCHA 3. Or install from the command line:
 
-        ./craft install/plugin craft-recaptcha-3
+        ./craft plugin/install craft-recaptcha-3
 
-## Craft reCAPTCHA 3 Overview
+## Craft reCaptcha 3 Overview
 
-Google's Recaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. It will determine whether the user is human based on their browser characteristics, visiting history, cookie information, etc. The request to Google to auth must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating recaptcha with Google by providing a drop-in solution.
+Google's reCaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. Google will determine whether the user is human based on their browser characteristics, visiting history, and cookie information. The request to Google must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating reCaptcha with Google by providing a drop-in solution.
 
-Currently the plugin preforms the relay when the page is loaded. Future versions of the plugin may support authorization upon specific events. This page load authorization can used to modify the page in repsonse to bots.
-
-Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots (as opposed to Google's v2). 
+Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots.
 
 I hope this plugin helps in your spam prevention journey!
 
 ## Configuring Craft reCAPTCHA 3
 
-To configure the plugin, simply provide the site key and secret key in the settings screen. These two values are provided when you create a new site in the admin panel: <a href="https://www.google.com/recaptcha/intro/v3.html">https://www.google.com/recaptcha/intro/v3.html</a>. Make sure that these keys are to the v3 version of the plugin, or else Google's server will return a 400 error.
+To configure the plugin, simply provide the site key and secret key in the settings screen. These two values are provided when you create a new site in the admin panel: <a href="<https://www.google.com/recaptcha/intro/v3.html>">https://www.google.com/recaptcha/intro/v3.html</a>. Make sure that these keys are to the v3 version of the plugin, or else Google's server will return a 400 error.
+
+Settings may be optionally configured using a config file.
+
+Create `config/craft-recaptcha-3.php`
+
+```php
+<?php
+return [
+ "siteKey" => getenv("GOOGLE_SITEKEY"),
+ "secretKey" => getenv("GOOGLE_SECRETKEY")
+];
+```
+
+and then move your keys in your env.
 
 ## Using Craft reCAPTCHA 3
 
-The invisible recaptcha has two parts, a front-end request and a back-end request. This code will inject a script to communicate between your website and Google. (Can be anywhere on page)
+The 1.2.0 update brings a friendly API to our plugin. I have added twig extensions to define functions that can be called from templates.
+
+```twig
+{# This is a "simple" version that will instantly request a score when ready #}
+{{ craftRecaptcha3({ 
+        action: 'foobar', 
+        success: 'recaptchaSuccess', 
+        failure: 'recaptchaFailure' 
+}) | raw }}
+
+{# This is a "form" version that will prevent the form from submitting until validated #}
+<form method="post" accept-charset="UTF-8">
+        {{ csrfInput() }}
+        {{ actionInput('users/save-user') }}
+        {{ craftRecaptcha3Form({ 
+                action: 'contactForm', 
+                success: 'recaptchaSuccess', 
+                failure: 'recaptchaFailure' 
+        }) | raw }}
+</form>
+```
+
+You may notice that you can define what the success / failure functions will be called. The "action" parameter for tracking in reCaptcha is also available.
+
+```js
+// these functions can also be included directly in the template with {% js %}{% endjs %} tags
+let recaptchaSuccess = function (response, event) {
+        console.log('Successful registration', response);
+        if(event){ // null if simple version is used
+                event.target.submit(); // submit the form on success!
+        }
+};
+          
+let recaptchaFailure = function (response, event) {
+        console.log(response);
+        alert('We could not verify the user with Google reCaptcha 3: '+response['error-codes'].join(','))
+};
+```
+
+## Using Craft reCAPTCHA 3 (Pre 1.2.0)
+
+I have kept the legacy script until the 2.0.0 release. Please attempt to update your API if possible.
+
+The invisible reCaptcha has two parts, a front-end request and a back-end request. This code will inject a script to communicate between your website and Google. (Can be anywhere on page, basically the simple version with explicit callback functions)
 
 ```php
 {% include ['_recaptcha/frontend'] %}
@@ -50,7 +105,7 @@ You can also include an action name by passing the `action` variable to the scri
 {% include ['_recaptcha/frontend'] with {'action': 'contact'} %}
 ```
 
-The following javascript functions will be called once the responce from Google is recieved:
+The following javascript functions will be called once the response from Google is received:
 
 ```js
 
@@ -58,7 +113,7 @@ The following javascript functions will be called once the responce from Google 
 window.recaptcha_callback = function(response){
         console.log(response);
 }
-// Called only if the usesr passes the challenge
+// Called only if the user passes the challenge
 window.recaptcha_success = function(response){
         console.log(response);
 }
@@ -68,29 +123,12 @@ window.recaptcha_failure = function(response){
 }
 ```
 
-Please make one or all of these functions available in the Javascript runtime to be called. 
+Please make one or all of these functions available in the Javascript runtime to be called.
 
-This page from Google may help clear up any misconceptions or frequently encountered issues [https://developers.google.com/recaptcha/docs/faq](https://developers.google.com/recaptcha/docs/faq)
-
-## Configuration
-
-Settings may be optionally configured using a config file.
-
-Create `config/craft-recaptcha-3.php`
-
-```php
-<?php
-return [
-	"siteKey" => getenv("GOOGLE_SITEKEY"),
-	"secretKey" => getenv("GOOGLE_SECRETKEY")
-];
-```
-and then move your keys in your env.
-
-## Craft reCAPTCHA 3 Roadmap
+## Craft reCAPTCHA 3 Road Map
 
 Some things to do, and ideas for potential features:
 
-* Make response / function available to backend plugins?
+* Make response / functions available to backend plugins (please see my "DefaultService" to see if it may fit your needs)
 
 Brought to you by [Clark Nelson](https://clarknelson.com) and GitHub contributors like you!
