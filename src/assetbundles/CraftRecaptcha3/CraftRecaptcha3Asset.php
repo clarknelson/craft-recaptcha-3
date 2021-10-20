@@ -48,7 +48,7 @@ class CraftRecaptcha3Asset extends AssetBundle
 
         // define the dependencies
         $this->depends = [
-            CpAsset::class,
+            // CpAsset::class,
         ];
 
         // define the relative path to CSS/JS files that should be registered with the page

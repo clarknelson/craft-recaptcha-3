@@ -2,7 +2,7 @@
   "name": "clarknelson/craft-recaptcha-3",
   "description": "Verifies via Google the site and secret codes required to verify humanity through reCAPTCHA v3.",
   "type": "craft-plugin",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "keywords": [
     "craft",
     "cms",
@@ -46,6 +46,9 @@
     "hasCpSettings": true,
     "hasCpSection": false,
     "changelogUrl": "https://raw.githubusercontent.com/clarknelson/craft-recaptcha-3/master/CHANGELOG.md",
+    "components": {
+      "defaultService": "clarknelson\\craftrecaptcha3\\services\\DefaultService"
+    },
     "class": "clarknelson\\craftrecaptcha3\\CraftRecaptcha3"
   }
 }
