@@ -56,7 +56,7 @@
               console.error('There was a problem requesting the captcha score from the server', scoreRequest);
             }
           };
-          scoreRequest.open("POST", "{{currentSite.baseUrl}}{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
+          scoreRequest.open("POST", "/{{ craft.app.config.general.actionTrigger }}/craft-recaptcha-3/default", true);
           scoreRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           scoreRequest.send('response=' + token + '&{{ craft.app.config.general.csrfTokenName }}=' + csrf);
         });
