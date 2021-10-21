@@ -1,12 +1,4 @@
 <?php
-/**
- * Craft reCAPTCHA 3 plugin for Craft CMS 3.x
- *
- * Verifies via Google the site and secret codes required to verify humanity through reCAPTCHA v3.
- *
- * @link      http://clarknelson.com
- * @copyright Copyright (c) 2019 Clark Nelson
- */
 
 /**
  * Craft reCAPTCHA 3 config.php
@@ -23,8 +15,10 @@
  */
 
 return [
-
-    // This controls blah blah blah
-    "someAttribute" => true,
-
+    'siteKey' => '',
+    'secretKey' => '',
+    'siteKey3' => '',
+    'secretKey3' => '',
+    'siteKey2' => '',
+    'secretKey2' => '', 
 ];
