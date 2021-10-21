@@ -49,8 +49,9 @@ There are two new ways to include the recaptcha on the page.
 
 ### Simple Version
 
+Will request and validate the user on page load:
+
 ```twig
-{# This is a "simple" version that will instantly request a score when ready #}
 {{ craftRecaptcha3({ 
     action: 'verify',
     badge: true,
@@ -67,8 +68,9 @@ The "badge" true or false value will determine if the fixed bottom right badge w
 
 ### Form Version
 
+Will prevent the parent form from submitting. You will submit the form in your javascript success callback function instead.
+
 ```twig
-{# This is a "form" version that will prevent the form from submitting until validated #}
 <form method="post" accept-charset="UTF-8">
     {{ csrfInput() }}
     {{ actionInput('users/save-user') }}

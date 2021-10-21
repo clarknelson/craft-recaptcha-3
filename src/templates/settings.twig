@@ -16,7 +16,7 @@
 {% import "_includes/forms" as forms %}
 
 <p>Please visit Google's reCAPTCHA <a href="https://www.google.com/recaptcha/admin/" target="_blank">admin panel</a> to generate <a href="https://www.google.com/recaptcha/admin/create" target="_blank">new keys.</a></p>
-
+{# 
 {{ forms.textField({
     label: 'Google reCaptcha 3 Site Key',
     id: 'siteKey3',
@@ -46,12 +46,12 @@
     id: 'secretKey2',
     name: 'secretKey2',
     value: settings['secretKey2']})
-}}
+}} #}
 
 
 {{ forms.textField({
     label: 'Google Recaptcha Site Key',
-    instructions: 'Legacy, should be version 3 site key',
+    instructions: 'Should be version 3 site key',
     id: 'siteKey',
     name: 'siteKey',
     value: settings['siteKey']})
@@ -59,7 +59,7 @@
 
 {{ forms.textField({
     label: 'Google Recaptcha Secret Key',
-    instructions: 'Legacy, should be version 3 secret key',
+    instructions: 'Should be version 3 secret key',
     id: 'secretKey',
     name: 'secretKey',
     value: settings['secretKey']})
