@@ -2,26 +2,6 @@
 
 A Craft CMS 3 plugin to verify the user's humanity via Google's reCAPTCHA v3.
 
-## Requirements
-
-This plugin requires Craft CMS 3.0.0 or later.
-
-## Installation
-
-To install the plugin, follow these instructions.
-
-1. Open your terminal and go to your Craft project:
-
-        cd /path/to/project
-
-2. Then tell Composer to load the plugin:
-
-        composer require clarknelson/craft-recaptcha-3
-
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Craft reCAPTCHA 3. Or install from the command line:
-
-        ./craft plugin/install craft-recaptcha-3
-
 ## Craft reCaptcha 3 Overview
 
 Google's reCaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. Google will determine whether the user is human based on their browser characteristics, visiting history, and cookie information. The request to Google must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating reCaptcha with Google by providing a drop-in solution.
@@ -30,9 +10,22 @@ Because of the low user friction, this may not be the most secure or reliable se
 
 I hope this plugin helps in your spam prevention journey!
 
+## Requirements
+
+This plugin requires Craft CMS 3.0.0 or later.
+
+## Installation
+
+To install the plugin, follow these instructions.
+
+```bash
+composer require clarknelson/craft-recaptcha-3
+craft plugin/install craft-recaptcha-3
+```
+
 ## Configuring Craft reCAPTCHA 3
 
-To configure the plugin, simply provide the site key and secret key in the settings screen. These two values are provided when you create a new site in the admin panel: <a href="<https://www.google.com/recaptcha/intro/v3.html>">https://www.google.com/recaptcha/intro/v3.html</a>. Make sure that these keys are to the v3 version of the plugin, or else Google's server will return a 400 error.
+To configure the plugin, simply provide the site key and secret key in the settings screen. Please make sure that these keys are to the v3 version of the plugin, or else Google's server will return a 400 error.
 
 Settings may be optionally configured using a config file.
 
@@ -43,10 +36,6 @@ Create `config/craft-recaptcha-3.php`
 return [
     'siteKey' => getenv("RECAPTCHA_SITEKEY"),
     'secretKey' => getenv("RECAPTCHA_SECRETKEY"),
-    'siteKey3' => getenv("RECAPTCHA_SITEKEY3"),
-    'secretKey3' => getenv("RECAPTCHA_SECRETKEY3"),
-    'siteKey2' => getenv("RECAPTCHA_SITEKEY2"),
-    'secretKey2' => getenv("RECAPTCHA_SECRETKEY2"),  
 ];
 ```
 
