@@ -78,12 +78,17 @@ The "badge" true false value will determine if the fixed bottom right badge will
 
 
 ```js
-// these functions can also be included directly in the template with {% js %}{% endjs %} tags
+// these functions can be included directly in the template with {% js %}{% endjs %} tags
+// or you can put them in you JS files, just make sure the function is available by the time the ajax finishes
 // just an example to get you started!
 let recaptchaSuccess = function (response, event) {
     console.log('Successful registration', response);
-    if(event){ // null if simple version is used
-        event.target.submit(); // submit the form on success!
+
+    // if this function was called as part of the form version
+    // the event will be passed on so you can handle it as you please
+    if(event){
+        // in the case of a <form> submit event, this will "continue" the submission
+        event.target.submit();
     }
 };
           
@@ -133,7 +138,8 @@ Please make one or all of these functions available in the Javascript runtime to
 
 Some things to do, and ideas for potential features:
 
+* Add "button" option to include on the page (toggled when clicked)
+* Add ability to have V2 checkbox on the page also.
 * Make response / functions available to backend plugins (please see my "DefaultService" to see if it may fit your needs)
-* Add option to hide recaptcha badge
-
+  
 Brought to you by [Clark Nelson](https://clarknelson.com) and GitHub contributors like you!
