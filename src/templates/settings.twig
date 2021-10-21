@@ -15,32 +15,43 @@
 
 {% import "_includes/forms" as forms %}
 
-<p>Please visit <a href="https://www.google.com/recaptcha/admin/" target="_blank">Google's reCAPTCHA admin panel</a> to <a href="https://www.google.com/recaptcha/admin/create" target="_blank">generate new keys.</a></p>
+<p>Please visit Google's reCAPTCHA <a href="https://www.google.com/recaptcha/admin/" target="_blank">admin panel</a> to generate <a href="https://www.google.com/recaptcha/admin/create" target="_blank">new keys.</a></p>
 
-<p>These codes can be added to the JS runtime to handle the response:</p>
+{{ forms.textField({
+    label: 'Google reCaptcha 3 Site Key',
+    id: 'siteKey3',
+    name: 'siteKey3',
+    value: settings['siteKey3']})
+}}
 
-<code>
-// run if there is a 200 response from Google</br>
-window.recaptcha_callback = function(response){
-    console.log(response);
-}
-</br>
-</br>
-// run if the user passes the captcha</br>
-window.recaptcha_success = function(response){
-    console.log(response);
-}
-</br>
-</br>
-// run if the user fails the captcha</br>
-window.recaptcha_failure = function(response){
-    console.log(response);
-}
-</code>
+{{ forms.textField({
+    label: 'Google reCaptcha 3 Secret Key',
+    id: 'secretKey3',
+    name: 'secretKey3',
+    value: settings['secretKey3']})
+}}
+
+
+{{ forms.textField({
+    label: 'Google reCaptcha 2 Site Key',
+    instructions: 'Checkbox v2, not invisible',
+    id: 'siteKey2',
+    name: 'siteKey2',
+    value: settings['siteKey2']})
+}}
+
+{{ forms.textField({
+    label: 'Google reCaptcha 2 Secret Key',
+    instructions: 'Checkbox v2, not invisible',
+    id: 'secretKey2',
+    name: 'secretKey2',
+    value: settings['secretKey2']})
+}}
 
 
 {{ forms.textField({
     label: 'Google Recaptcha Site Key',
+    instructions: 'Legacy, should be version 3 site key',
     id: 'siteKey',
     name: 'siteKey',
     value: settings['siteKey']})
@@ -48,6 +59,7 @@ window.recaptcha_failure = function(response){
 
 {{ forms.textField({
     label: 'Google Recaptcha Secret Key',
+    instructions: 'Legacy, should be version 3 secret key',
     id: 'secretKey',
     name: 'secretKey',
     value: settings['secretKey']})

@@ -26,7 +26,7 @@ To install the plugin, follow these instructions.
 
 Google's reCaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. Google will determine whether the user is human based on their browser characteristics, visiting history, and cookie information. The request to Google must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating reCaptcha with Google by providing a drop-in solution.
 
-Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots.
+Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots. See FAQ page for more information: [https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3](https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3)
 
 I hope this plugin helps in your spam prevention journey!
 
@@ -41,8 +41,12 @@ Create `config/craft-recaptcha-3.php`
 ```php
 <?php
 return [
- "siteKey" => getenv("GOOGLE_SITEKEY"),
- "secretKey" => getenv("GOOGLE_SECRETKEY")
+    'siteKey' => getenv("RECAPTCHA_SITEKEY"),
+    'secretKey' => getenv("RECAPTCHA_SECRETKEY"),
+    'siteKey3' => getenv("RECAPTCHA_SITEKEY3"),
+    'secretKey3' => getenv("RECAPTCHA_SECRETKEY3"),
+    'siteKey2' => getenv("RECAPTCHA_SITEKEY2"),
+    'secretKey2' => getenv("RECAPTCHA_SECRETKEY2"),  
 ];
 ```
 
@@ -69,6 +73,8 @@ The 1.2.0 update brings a friendly API to our plugin. I have added twig extensio
                 success: 'recaptchaSuccess', 
                 failure: 'recaptchaFailure' 
         }) | raw }}
+
+        ...
 </form>
 ```
 
@@ -76,6 +82,7 @@ You may notice that you can define what the success / failure functions will be 
 
 ```js
 // these functions can also be included directly in the template with {% js %}{% endjs %} tags
+// just an example to get you started!
 let recaptchaSuccess = function (response, event) {
         console.log('Successful registration', response);
         if(event){ // null if simple version is used
@@ -84,8 +91,8 @@ let recaptchaSuccess = function (response, event) {
 };
           
 let recaptchaFailure = function (response, event) {
-        console.log(response);
-        alert('We could not verify the user with Google reCaptcha 3: '+response['error-codes'].join(','))
+        // console.log(response);
+        console.error('We could not verify the user with Google reCaptcha 3: '+response['error-codes'].join(','))
 };
 ```
 
@@ -130,5 +137,6 @@ Please make one or all of these functions available in the Javascript runtime to
 Some things to do, and ideas for potential features:
 
 * Make response / functions available to backend plugins (please see my "DefaultService" to see if it may fit your needs)
+* Add option to hide recaptcha badge
 
 Brought to you by [Clark Nelson](https://clarknelson.com) and GitHub contributors like you!

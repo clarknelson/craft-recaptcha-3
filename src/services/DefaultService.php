@@ -65,11 +65,11 @@ class DefaultService extends Component
      *
      * From any other plugin file, call it like this:
      *
-     *     CraftRecaptcha3::$plugin->captcha->loadRecaptchaScript()
+     *     CraftRecaptcha3::$plugin->captcha->loadCaptcha3Script()
      *
      * @return mixed
      */
-    public function loadRecaptchaScript()
+    public function loadCaptcha3Script()
     {
         $settings = CraftRecaptcha3::$plugin->getSettings();
         if (!$settings->siteKey) {
@@ -79,6 +79,7 @@ class DefaultService extends Component
             </script>
             EOD;
         } else {
+            // @TODO: Maybe we should register a js file with craft to load instead
             return <<<EOD
             <script src="https://www.google.com/recaptcha/api.js?render=$settings->siteKey"></script>
             EOD;

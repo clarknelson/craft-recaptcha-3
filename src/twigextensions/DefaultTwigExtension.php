@@ -70,10 +70,37 @@ class DefaultTwigExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
+            new TwigFunction('craftRecaptcha2', [$this, 'craftRecaptcha2']),
             new TwigFunction('craftRecaptcha3', [$this, 'craftRecaptcha3']),
             new TwigFunction('craftRecaptcha3Form', [$this, 'craftRecaptcha3Form']),
         ];
     }
+
+   
+
+    /**
+     * Simple Function: Will output the script to start loading recaptcha,
+     * in addition to the instant request once the page loads to the server
+     * doesn't require any input from the user, will auto-authenticate
+     *
+     * @param null $text
+     *
+     * @return string
+     */
+    public function craftRecaptcha2($settings)
+    {
+        $service = CraftRecaptcha3::getInstance()->captcha;
+
+        // grecaptcha.ready(() => {
+        //     grecaptcha.render('html_element', {
+        //        'sitekey' : 'v2_site_key'
+        //     });
+        //   });
+        $template = $service->loadCaptcha3Script() .
+            $service->recaptchaExectue($settings);
+        return $template;
+    }
+
 
     /**
      * Simple Function: Will output the script to start loading recaptcha,
@@ -87,7 +114,7 @@ class DefaultTwigExtension extends AbstractExtension
     public function craftRecaptcha3($settings)
     {
         $service = CraftRecaptcha3::getInstance()->captcha;
-        $template = $service->loadRecaptchaScript() .
+        $template = $service->loadCaptcha3Script() .
             $service->recaptchaExectue($settings);
         return $template;
     }
@@ -103,7 +130,7 @@ class DefaultTwigExtension extends AbstractExtension
     public function craftRecaptcha3Form($settings)
     {
         $service = CraftRecaptcha3::getInstance()->captcha;
-        $template = $service->loadRecaptchaScript() .
+        $template = $service->loadCaptcha3Script() .
             $service->recaptchaForm($settings);
         return $template;
     }

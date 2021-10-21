@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Craft reCAPTCHA 3 plugin for Craft CMS 3.x
  *
@@ -39,6 +40,10 @@ class Settings extends Model
      *
      * @var string
      */
+    public $siteKey3 = '';
+    public $secretKey3 = '';
+    public $siteKey2 = '';
+    public $secretKey2 = '';
     public $siteKey = '';
     public $secretKey = '';
 
@@ -59,7 +64,11 @@ class Settings extends Model
     {
         return [
             ['siteKey', 'string'],
-            ['secretKey', 'string'],
+            ['secretKey', 'string'],            
+            ['siteKey3', 'string'],
+            ['secretKey3', 'string'],            
+            ['siteKey2', 'string'],
+            ['secretKey2', 'string'],
             [['siteKey', 'secretKey'], 'required']
         ];
     }
