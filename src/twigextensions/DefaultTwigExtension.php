@@ -96,7 +96,7 @@ class DefaultTwigExtension extends AbstractExtension
         //        'sitekey' : 'v2_site_key'
         //     });
         //   });
-        $template = $service->loadCaptcha3Script() .
+        $template = $service->loadCaptcha3Script($settings) .
             $service->recaptchaExectue($settings);
         return $template;
     }
@@ -114,7 +114,7 @@ class DefaultTwigExtension extends AbstractExtension
     public function craftRecaptcha3($settings)
     {
         $service = CraftRecaptcha3::getInstance()->captcha;
-        $template = $service->loadCaptcha3Script() .
+        $template = $service->loadCaptcha3Script($settings) .
             $service->recaptchaExectue($settings);
         return $template;
     }
@@ -130,7 +130,7 @@ class DefaultTwigExtension extends AbstractExtension
     public function craftRecaptcha3Form($settings)
     {
         $service = CraftRecaptcha3::getInstance()->captcha;
-        $template = $service->loadCaptcha3Script() .
+        $template = $service->loadCaptcha3Script($settings) .
             $service->recaptchaForm($settings);
         return $template;
     }

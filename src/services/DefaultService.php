@@ -37,7 +37,7 @@ class DefaultService extends Component
     // =========================================================================
 
 
-    public $settings;
+    public $pluginSettings;
     public $cpTrigger;
     public $actionTrigger;
     public $csrfTokenName;
@@ -49,7 +49,7 @@ class DefaultService extends Component
      */
     public function init()
     {
-        $this->settings = null;
+        $this->pluginSettings = null;
         $this->cpTrigger = Craft::$app->config->general->cpTrigger;
         $this->actionTrigger = Craft::$app->config->general->actionTrigger;
         $this->csrfTokenName = Craft::$app->config->general->csrfTokenName;
@@ -69,22 +69,32 @@ class DefaultService extends Component
      *
      * @return mixed
      */
-    public function loadCaptcha3Script()
+    public function loadCaptcha3Script($settings)
     {
-        $settings = CraftRecaptcha3::$plugin->getSettings();
-        if (!$settings->siteKey) {
+        $this->pluginSettings = CraftRecaptcha3::$plugin->getSettings();
+        $siteKey = $this->pluginSettings['siteKey'];
+        if (!$siteKey) {
             return <<<EOD
             <script>
                 console.error("The site key was not set for the Craft Recaptcha 3 plugin.The site key was not set for the Craft Recaptcha 3 plugin. Please visit the settings page to add this key.");
             </script>
             EOD;
         } else {
+            $visible = isset($settings['badge']) ? (boolean)$settings['badge'] : true;
+            $hiddenStyles = $visible ? "" : "<style>.grecaptcha-badge { visibility: hidden; }</style>";
+
             // @TODO: Maybe we should register a js file with craft to load instead
+            // Craft::$app->getView()->registerAssetBundle(CraftRecaptcha3Asset::class);
+            // something like this but we probably don't need a whole asset bundle
+
+            // @TODO: I believe this parameter will call render right away with the site key
+            // it would be better if it just loaded the script and called render elsewhere
+
             return <<<EOD
-            <script src="https://www.google.com/recaptcha/api.js?render=$settings->siteKey"></script>
+            $hiddenStyles
+            <script src="https://www.google.com/recaptcha/api.js?render=$siteKey"></script>
             EOD;
         }
-        // Craft::$app->getView()->registerAssetBundle(CraftRecaptcha3Asset::class);
     }
 
     /**
@@ -99,7 +109,6 @@ class DefaultService extends Component
      */
     public function recaptchaExectue($settings)
     {
-        $this->settings = $settings;
         $requestScoreScript = $this->_requestScoreScript('requestScore');
         return <<<EOD
         <script>
@@ -124,7 +133,6 @@ class DefaultService extends Component
      */
     public function recaptchaForm($settings)
     {
-        $this->settings = $settings;
         $requestScoreScript = $this->_requestScoreScript('requestScore');
         $slug = StringHelper::randomString();
         return <<<EOD
@@ -157,8 +165,8 @@ class DefaultService extends Component
     {
         $funcName = $funcName ?? 'requestScore';
         $action = $this->settings['action'] ?? 'contact';
-        $successCallback = $this->settings['success'] ?? 'recaptcha_success';
-        $failureCallback = $this->settings['failure'] ?? 'recaptcha_failure';
+        $successCallback = $this->settings['success'] ?? 'window.recaptcha_success';
+        $failureCallback = $this->settings['failure'] ?? 'window.recaptcha_failure';
 
         return <<<EOD
         var $funcName = function (event) {
@@ -173,6 +181,8 @@ class DefaultService extends Component
             } else {
                 let event = null;
             }
+
+         
             window.grecaptcha.execute("$this->siteKey", { action: "$action" }).then(function (token) {
                 var scoreRequest = new XMLHttpRequest();
                 scoreRequest.onload = function () {

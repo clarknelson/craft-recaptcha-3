@@ -50,7 +50,8 @@ There are two new ways to include the recaptcha on the page.
 ```twig
 {# This is a "simple" version that will instantly request a score when ready #}
 {{ craftRecaptcha3({ 
-    action: 'foobar', 
+    action: 'verify',
+    badge: true,
     success: 'recaptchaSuccess', 
     failure: 'recaptchaFailure' 
 }) | raw }}
@@ -62,7 +63,6 @@ There are two new ways to include the recaptcha on the page.
     {{ csrfInput() }}
     {{ actionInput('users/save-user') }}
     {{ craftRecaptcha3Form({ 
-            action: 'contactForm', 
             success: 'recaptchaSuccess', 
             failure: 'recaptchaFailure' 
     }) | raw }}
@@ -70,9 +70,11 @@ There are two new ways to include the recaptcha on the page.
 </form>
 ```
 
-You can define what the success / failure javascript callbacks will be called.
+You can define what the success / failure javascript callbacks will be called. If these are not provided or do not exist, nothing will happen right now.
 
-The "action" parameter for tracking within reCaptcha is also available.
+The "action" parameter for tracking within reCaptcha is also available. This is optional and will fall back to "contact".
+
+The "badge" true false value will determine if the fixed bottom right badge will be visible. Please follow [Google's Guidelines](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed) if you decide to remove this from the page.
 
 
 ```js
