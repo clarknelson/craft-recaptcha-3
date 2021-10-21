@@ -50,23 +50,23 @@ There are two new ways to include the recaptcha on the page.
 ```twig
 {# This is a "simple" version that will instantly request a score when ready #}
 {{ craftRecaptcha3({ 
-        action: 'foobar', 
-        success: 'recaptchaSuccess', 
-        failure: 'recaptchaFailure' 
+    action: 'foobar', 
+    success: 'recaptchaSuccess', 
+    failure: 'recaptchaFailure' 
 }) | raw }}
 ```
 
 ```twig
 {# This is a "form" version that will prevent the form from submitting until validated #}
 <form method="post" accept-charset="UTF-8">
-        {{ csrfInput() }}
-        {{ actionInput('users/save-user') }}
-        {{ craftRecaptcha3Form({ 
-                action: 'contactForm', 
-                success: 'recaptchaSuccess', 
-                failure: 'recaptchaFailure' 
-        }) | raw }}
-        ...
+    {{ csrfInput() }}
+    {{ actionInput('users/save-user') }}
+    {{ craftRecaptcha3Form({ 
+            action: 'contactForm', 
+            success: 'recaptchaSuccess', 
+            failure: 'recaptchaFailure' 
+    }) | raw }}
+    ...
 </form>
 ```
 
@@ -79,15 +79,15 @@ The "action" parameter for tracking within reCaptcha is also available.
 // these functions can also be included directly in the template with {% js %}{% endjs %} tags
 // just an example to get you started!
 let recaptchaSuccess = function (response, event) {
-        console.log('Successful registration', response);
-        if(event){ // null if simple version is used
-                event.target.submit(); // submit the form on success!
-        }
+    console.log('Successful registration', response);
+    if(event){ // null if simple version is used
+        event.target.submit(); // submit the form on success!
+    }
 };
           
 let recaptchaFailure = function (response, event) {
-        // console.log(response);
-        console.error('We could not verify the user with Google reCaptcha 3: '+response['error-codes'].join(','))
+    // console.log(response);
+    console.error('We could not verify the user with Google reCaptcha 3: '+response['error-codes'].join(','))
 };
 ```
 
@@ -113,15 +113,15 @@ The following javascript functions will be called once the response from Google 
 
 // Called if there is a successful response
 window.recaptcha_callback = function(response){
-        console.log(response);
+    console.log(response);
 }
 // Called only if the user passes the challenge
 window.recaptcha_success = function(response){
-        console.log(response);
+    console.log(response);
 }
 // Called only if the user fails the challenge
 window.recaptcha_failure = function(response){
-        console.log(response);
+    console.log(response);
 }
 ```
 
