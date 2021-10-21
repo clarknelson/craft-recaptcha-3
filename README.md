@@ -6,13 +6,13 @@ A Craft CMS 3 plugin to verify the user's humanity via Google's reCAPTCHA v3.
 
 Google's reCaptcha service is the industry leader in determining whether a website visitor is human or robot. Their newest version (v3) does not require any human challenge such as a checkbox. Google will determine whether the user is human based on their browser characteristics, visiting history, and cookie information. The request to Google must come from a server, not a browser, which is where this plugin comes in. It attempts to take the busy work out of validating reCaptcha with Google by providing a drop-in solution.
 
-Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots. See FAQ page for more information: [https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3](https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3)
+Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots. Many contact form plugins also have options for including captcha security. See FAQ page for more information: [https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3](https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3)
 
 I hope this plugin helps in your spam prevention journey!
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0 or later.
+This plugin requires Craft CMS 3.0.0 or later. Google reCAPTCHA account (with v3 site / secret keys). 
 
 ## Installation
 
@@ -43,7 +43,9 @@ and then move your keys in your env.
 
 ## Using Craft reCAPTCHA 3
 
-The 1.2.0 update brings a friendly API to our plugin. I have added twig extensions to define functions that can be called from templates.
+The 1.2.0 update brings a more friendly API to our plugin. 
+
+There are two new ways to include the recaptcha on the page.
 
 ```twig
 {# This is a "simple" version that will instantly request a score when ready #}
@@ -52,7 +54,9 @@ The 1.2.0 update brings a friendly API to our plugin. I have added twig extensio
         success: 'recaptchaSuccess', 
         failure: 'recaptchaFailure' 
 }) | raw }}
+```
 
+```twig
 {# This is a "form" version that will prevent the form from submitting until validated #}
 <form method="post" accept-charset="UTF-8">
         {{ csrfInput() }}
@@ -62,12 +66,14 @@ The 1.2.0 update brings a friendly API to our plugin. I have added twig extensio
                 success: 'recaptchaSuccess', 
                 failure: 'recaptchaFailure' 
         }) | raw }}
-
         ...
 </form>
 ```
 
-You may notice that you can define what the success / failure functions will be called. The "action" parameter for tracking in reCaptcha is also available.
+You can define what the success / failure javascript callbacks will be called.
+
+The "action" parameter for tracking within reCaptcha is also available.
+
 
 ```js
 // these functions can also be included directly in the template with {% js %}{% endjs %} tags
