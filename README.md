@@ -57,6 +57,12 @@ There are two new ways to include the recaptcha on the page.
 }) | raw }}
 ```
 
+You can define what the success / failure javascript callbacks will be called. If these are not provided or do not exist, nothing will happen right now.
+
+The "action" parameter for tracking within reCaptcha is also available. This is optional and will fall back to "contact".
+
+The "badge" true false value will determine if the fixed bottom right badge will be visible. Please follow [Google's Guidelines](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed) if you decide to remove this from the page.
+
 ```twig
 {# This is a "form" version that will prevent the form from submitting until validated #}
 <form method="post" accept-charset="UTF-8">
@@ -70,17 +76,11 @@ There are two new ways to include the recaptcha on the page.
 </form>
 ```
 
-You can define what the success / failure javascript callbacks will be called. If these are not provided or do not exist, nothing will happen right now.
-
-The "action" parameter for tracking within reCaptcha is also available. This is optional and will fall back to "contact".
-
-The "badge" true false value will determine if the fixed bottom right badge will be visible. Please follow [Google's Guidelines](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed) if you decide to remove this from the page.
-
+This is an example of what your javascript callbacks might look like: 
 
 ```js
 // these functions can be included directly in the template with {% js %}{% endjs %} tags
-// or you can put them in you JS files, just make sure the function is available by the time the ajax finishes
-// just an example to get you started!
+// or you can put them in you JS files, just make sure the function is available at runtime
 let recaptchaSuccess = function (response, event) {
     console.log('Successful registration', response);
 
