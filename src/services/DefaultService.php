@@ -109,7 +109,7 @@ class DefaultService extends Component
      */
     public function recaptchaExectue($settings)
     {
-        $requestScoreScript = $this->_requestScoreScript('requestScore');
+        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'], $settings['success'], $settings['failure']);
         return <<<EOD
         <script>
         if (typeof window.grecaptcha !== "undefined") {
@@ -133,7 +133,7 @@ class DefaultService extends Component
      */
     public function recaptchaForm($settings)
     {
-        $requestScoreScript = $this->_requestScoreScript('requestScore');
+        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'], $settings['success'], $settings['failure']);
         $slug = StringHelper::randomString();
         return <<<EOD
         <input type="hidden" name="craft-recaptcha-3-$slug" value="true">
@@ -161,12 +161,12 @@ class DefaultService extends Component
      *
      *     CraftRecaptcha3::$plugin->captcha->_requestScoreScript($funcName)
      */
-    public function _requestScoreScript($funcName)
+    public function _requestScoreScript($funcName, $actionName, $successFunc, $failureFunc)
     {
         $funcName = $funcName ?? 'requestScore';
-        $action = $this->settings['action'] ?? 'contact';
-        $successCallback = $this->settings['success'] ?? 'window.recaptcha_success';
-        $failureCallback = $this->settings['failure'] ?? 'window.recaptcha_failure';
+        $action = $actionName ?? 'contact';
+        $successCallback = $successFunc ?? 'window.recaptcha_success';
+        $failureCallback = $failureFunc ?? 'window.recaptcha_failure';
 
         return <<<EOD
         var $funcName = function (event) {
@@ -181,7 +181,6 @@ class DefaultService extends Component
             } else {
                 let event = null;
             }
-
          
             window.grecaptcha.execute("$this->siteKey", { action: "$action" }).then(function (token) {
                 var scoreRequest = new XMLHttpRequest();
