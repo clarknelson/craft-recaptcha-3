@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.2 - 2021-12-13
+### Bug fix
+  - Make sure that success and failure functions work for the new API format
+  
 ## 1.2.1 - 2021-10-21
 ### Improvements
   - Add ability to hide the badge the floats in the bottom right
