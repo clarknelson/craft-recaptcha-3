@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.1 - 2022-05-25
+### Fix
+  - Change a few more lines in the PHP that need updating for Craft 4
+
 ## 4.0.0 - 2022-05-25
 ### Update
   - Start work on Craft 4 version
