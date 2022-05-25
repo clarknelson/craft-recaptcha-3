@@ -2,7 +2,7 @@
   "name": "clarknelson/craft-recaptcha-3",
   "description": "Verifies via Google the site and secret codes required to verify humanity through reCAPTCHA v3.",
   "type": "craft-plugin",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "keywords": [
     "craft",
     "cms",
@@ -33,7 +33,8 @@
     }
   ],
   "require": {
-    "craftcms/cms": "^3.1.0"
+    "craftcms/cms": "^3.7.35",
+    "php": "^8.0.2"
   },
   "autoload": {
     "psr-4": {
@@ -50,5 +51,17 @@
       "defaultService": "clarknelson\\craftrecaptcha3\\services\\DefaultService"
     },
     "class": "clarknelson\\craftrecaptcha3\\CraftRecaptcha3"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "craftcms/rector": "dev-main",
+    "phpstan/phpstan": "^1.7"
   }
 }

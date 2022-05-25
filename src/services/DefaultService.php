@@ -47,7 +47,7 @@ class DefaultService extends Component
     /**
      * Initializes the service, stores some commonly used variables.
      */
-    public function init()
+    public function init(): void
     {
         $this->pluginSettings = null;
         $this->cpTrigger = Craft::$app->config->general->cpTrigger;
