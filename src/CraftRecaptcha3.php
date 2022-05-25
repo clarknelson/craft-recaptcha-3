@@ -88,18 +88,6 @@ class CraftRecaptcha3 extends Plugin
 			'captcha' => DefaultService::class
 		]);
 
-        // Do something after we're installed
-        // Default boilerplate code, we may need in the future though
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                    // We were just installed
-                }
-            }
-        );
-
         // Register template directory for users to call
         Event::on(
             View::class,
