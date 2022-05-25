@@ -47,7 +47,7 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = true;
+    protected array|bool|int $allowAnonymous = true;
 
     // Public Methods
     // =========================================================================
@@ -92,7 +92,7 @@ class DefaultController extends Controller
         return true;
     }
 
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         $this->actionCheckSettings();
 
