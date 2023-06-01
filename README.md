@@ -34,8 +34,8 @@ Create `config/craft-recaptcha-3.php`
 ```php
 <?php
 return [
-    'siteKey' => getenv("RECAPTCHA_SITEKEY"),
-    'secretKey' => getenv("RECAPTCHA_SECRETKEY"),
+    'siteKey' => craft\helpers\App::env("RECAPTCHA_SITEKEY"),
+    'secretKey' => craft\helpers\App::env("RECAPTCHA_SECRETKEY"),
 ];
 ```
 
