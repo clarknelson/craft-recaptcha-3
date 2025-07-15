@@ -62,6 +62,11 @@
   "prefer-stable": true,
   "require-dev": {
     "craftcms/rector": "dev-main",
-    "phpstan/phpstan": "^1.7"
+    "phpstan/phpstan": "^1.10",
+    "craftcms/phpstan": "dev-main"
+  },
+  "scripts": {
+    "phpstan": "phpstan analyse src --memory-limit=256M",
+    "rector": "vendor/bin/rector process src --config vendor/craftcms/rector/sets/craft-cms-50.php"
   }
 }

@@ -12,7 +12,6 @@
 namespace clarknelson\craftrecaptcha3\services;
 
 use clarknelson\craftrecaptcha3\CraftRecaptcha3;
-use clarknelson\craftrecaptcha3\assetbundles\CraftRecaptcha3\CraftRecaptcha3Asset;
 
 use Craft;
 use craft\base\Component;
@@ -83,10 +82,6 @@ class DefaultService extends Component
             $visible = isset($settings['badge']) ? (boolean)$settings['badge'] : true;
             $hiddenStyles = $visible ? "" : "<style>.grecaptcha-badge { visibility: hidden; }</style>";
 
-            // @TODO: Maybe we should register a js file with craft to load instead
-            // Craft::$app->getView()->registerAssetBundle(CraftRecaptcha3Asset::class);
-            // something like this but we probably don't need a whole asset bundle
-
             // @TODO: I believe this parameter will call render right away with the site key
             // it would be better if it just loaded the script and called render elsewhere
 
@@ -109,7 +104,7 @@ class DefaultService extends Component
      */
     public function recaptchaExectue($settings)
     {
-        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'], $settings['success'], $settings['failure']);
+        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'] ?? 'load', $settings['success'] ?? 'window.recaptcha_success', $settings['failure'] ?? 'window.recaptcha_failure');
         return <<<EOD
         <script>
         if (typeof window.grecaptcha !== "undefined") {
@@ -133,7 +128,7 @@ class DefaultService extends Component
      */
     public function recaptchaForm($settings)
     {
-        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'], $settings['success'], $settings['failure']);
+        $requestScoreScript = $this->_requestScoreScript('requestScore', $settings['action'] ?? 'form', $settings['success'] ?? 'window.recaptcha_success', $settings['failure'] ?? 'window.recaptcha_failure');
         $slug = StringHelper::randomString();
         return <<<EOD
         <input type="hidden" name="craft-recaptcha-3-$slug" value="true">

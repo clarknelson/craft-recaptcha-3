@@ -101,6 +101,8 @@ class CraftRecaptcha3 extends Plugin
             // Add in our Twig extension
             $this->view->registerTwigExtension(new DefaultTwigExtension());
         }
+
+        Craft::info('Craft Captcha Plugin Initiated');
     }
 
     // Protected Methods
