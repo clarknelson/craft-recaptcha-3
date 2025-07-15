@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.0 - 2025-07-15
+### Update
+  - Add support for Craft 5
+  - Improve front-end load event listener
+  - Add fallback values for success/failure/action
+  - Add deprication warning to Readme
+
 ## 4.0.1 - 2022-05-25
 ### Fix
   - Change a few more lines in the PHP that need updating for Craft 4
