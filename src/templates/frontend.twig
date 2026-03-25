@@ -12,7 +12,7 @@
   <script src="https://www.google.com/recaptcha/api.js?render={{ siteKey }}"></script>
 
   <script>
-    if (typeof window.grecaptcha !== "undefined") {
+    document.addEventListener('DOMContentLoaded', function() {
       window.grecaptcha.ready(function () {
         requestCSRF();
       });
@@ -61,6 +61,6 @@
           scoreRequest.send('response=' + token + '&{{ craft.app.config.general.csrfTokenName }}=' + csrf);
         });
       };
-    }
+    });
   </script>
 {% endif %}

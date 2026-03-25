@@ -1,6 +1,6 @@
-# Craft reCAPTCHA 3 plugin for Craft CMS 3.x
+# Craft reCAPTCHA 3 plugin for Craft CMS
 
-A Craft CMS 3 plugin to verify the user's humanity via Google's reCAPTCHA v3.
+A Craft CMS plugin to verify the user's humanity via Google's reCAPTCHA v3.
 
 ## Craft reCaptcha 3 Overview
 
@@ -8,7 +8,7 @@ Google's reCaptcha service is the industry leader in determining whether a websi
 
 Because of the low user friction, this may not be the most secure or reliable service in filtering bots. It will simply return whether or not Google thinks the current user is a bot. You may also need a checkbox captcha if the score does not pass and the user is likely a bot. There is a very good [hCaptcha Plugin](https://plugins.craftcms.com/craft-hcaptcha) which i've found to have the best success in preventing bots. Many contact form plugins also have options for including captcha security. See FAQ page for more information: [https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3](https://developers.google.com/recaptcha/docs/faq#should-i-use-recaptcha-v2-or-v3)
 
-I hope this plugin helps in your spam prevention journey!
+I've decided to depricate this plugin so I would appreciate developers exploring other options before installing. It's difficult to keep up with the Craft release schedule and there are many good options available now for captchas. I'll try to keep this plugin up to date as long as possible to prevent breaking any existing codebases. 
 
 ## Requirements
 
@@ -123,17 +123,16 @@ You can also include an action name by passing the `action` variable to the scri
 The following javascript functions will be called once the response from Google is received:
 
 ```js
-
-// Called if there is a successful response
-window.recaptcha_callback = function(response){
-    console.log(response);
-}
 // Called only if the user passes the challenge
 window.recaptcha_success = function(response){
     console.log(response);
 }
 // Called only if the user fails the challenge
 window.recaptcha_failure = function(response){
+    console.log(response);
+}
+// Called if there is a successful response
+window.recaptcha_callback = function(response){
     console.log(response);
 }
 ```
